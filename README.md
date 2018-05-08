@@ -1,5 +1,7 @@
 # AleyRobotics swift 3.0 serial for Raspberry Pi and external UART devices.
 
+## Write cross platform swift code for Arm at Mac, compile it at ur Rpi
+
 Simple code useful for working with UART ports at Raspberry Pi with  Apple swift language.
 Easy debuging UART protocols with remote socket connection at Mac throught Sockets and ip2Ser linux App.
 
