@@ -1,0 +1,148 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXFileReference section */
+		DAEC56302053DCAA004F9871 /* .DS_Store */ = {isa = PBXFileReference; lastKnownFileType = file; path = .DS_Store; sourceTree = "<group>"; };
+		DAEC56312053DCAA004F9871 /* ip2ser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ip2ser.c; sourceTree = "<group>"; };
+		DAEC56322053DCAA004F9871 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		DAEC56332053DCAA004F9871 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		DAEC56342053DCAA004F9871 /* synaccess.expect */ = {isa = PBXFileReference; lastKnownFileType = text; path = synaccess.expect; sourceTree = "<group>"; };
+		DAEC56352053DCAA004F9871 /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		DAEC56362053DCAA004F9871 /* ip2log.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ip2log.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		DAEC562A2053DCAA004F9871 = {
+			isa = PBXGroup;
+			children = (
+				DAEC56302053DCAA004F9871 /* .DS_Store */,
+				DAEC56312053DCAA004F9871 /* ip2ser.c */,
+				DAEC56322053DCAA004F9871 /* Makefile */,
+				DAEC56332053DCAA004F9871 /* README */,
+				DAEC56342053DCAA004F9871 /* synaccess.expect */,
+				DAEC56352053DCAA004F9871 /* COPYING */,
+				DAEC56362053DCAA004F9871 /* ip2log.c */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		DAEC562F2053DCAA004F9871 /* ip2ser */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = DAEC56372053DCAA004F9871 /* Build configuration list for PBXLegacyTarget "ip2ser" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = /Users/Yuri/git_repostry/hexapod_source/ip2ser;
+			dependencies = (
+			);
+			name = ip2ser;
+			passBuildSettingsInEnvironment = 1;
+			productName = ip2ser;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		DAEC562B2053DCAA004F9871 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = DAEC562E2053DCAA004F9871 /* Build configuration list for PBXProject "ip2ser" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DAEC562A2053DCAA004F9871;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DAEC562F2053DCAA004F9871 /* ip2ser */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		DAEC562C2053DCAA004F9871 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		DAEC562D2053DCAA004F9871 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		DAEC56382053DCAA004F9871 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = ip2ser;
+			};
+			name = Debug;
+		};
+		DAEC56392053DCAA004F9871 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = ip2ser;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DAEC562E2053DCAA004F9871 /* Build configuration list for PBXProject "ip2ser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAEC562C2053DCAA004F9871 /* Debug */,
+				DAEC562D2053DCAA004F9871 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAEC56372053DCAA004F9871 /* Build configuration list for PBXLegacyTarget "ip2ser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAEC56382053DCAA004F9871 /* Debug */,
+				DAEC56392053DCAA004F9871 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DAEC562B2053DCAA004F9871 /* Project object */;
+}

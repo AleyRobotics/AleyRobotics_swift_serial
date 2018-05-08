@@ -1,0 +1,182 @@
+ip2ser - Telnet to serial gateway
+---------------------------------
+
+This is a simple remote access daemon written to assist with embedded
+software development.  Features include:
+
+ - Support for multiple concurrent users
+ - 2-keystroke remote reboot command
+ - Raw protocol option
+ - minicom-compatible TTY locking
+ - Written in C; easy to build for embedded devices
+ - Includes a companion serial logging daemon
+
+
+Building / installation:
+
+make
+make install
+
+This copies the binaries to /usr/local/bin .
+
+
+Example usage:
+
+1) PC with one serial port, no remote reboot or other frills
+
+ip2ser -p 2300 -d /dev/ttyS0
+
+To connect to the target board:
+
+telnet localhost 2300
+
+This is roughly equivalent to starting up minicom or putty.  Port
+settings default to 115200 8N1.  Flow control is unsupported.  ANSI
+escape sequences will be handled by your xterm, gnome-terminal, etc.
+
+
+2) PC + X10 CM17a "Firecracker" + X10 AM466 appliance module + X10 TM751
+RF transceiver
+
+Port 2300 controls a single target board via serial, with remote power
+cycle.  /dev/firecracker is a symlink to /dev/ttyS1, on which the CM17a
+is attached.  Log with timestamps to /tmp/s0.log:
+
+ip2ser -p 2300 -d /dev/ttyS0 -r 'br a2 off ; sleep 1 ; br a2 on'
+ip2log -f /tmp/s0.log -t localhost 2300
+
+"br" is the X10 "bottlerocket" utility.
+
+
+3) PC + 8-port Rocketport 30128-8 + Synaccess NP-08 power controller
+
+Power control script is synaccess.expect
+
+Ports 2301-2308 control 8 different boards via serial, with remote power
+cycle:
+
+ip2ser -p 2301 -d /dev/ttyRP0 -r 'synaccess.expect 1 r"
+ip2ser -p 2302 -d /dev/ttyRP1 -r 'synaccess.expect 2 r"
+...
+ip2ser -p 2308 -d /dev/ttyRP7 -r 'synaccess.expect 8 r"
+
+
+4) Embedded Linux host + USB serial dongle + GPIO reset line
+
+ip2ser -p 2300 -d /dev/ttyUSB0 -r 'gpio 1 ; sleep 1 ; gpio 0'
+
+
+5) "Raw" mode can be used for remote kgdb (serial) connections:
+
+ip2ser -p 3301 -d /dev/ttyS1 -R
+
+(gdb) target remote 192.168.1.10:3301
+
+
+Multiuser support:
+
+ip2ser's multiuser capability is relatively uncommon on commercial
+serial concentrator units.  It is intended to be a simple, lightweight
+alternative to VNC and other remote desktop solutions.  Common use
+cases include:
+
+ - Accessing the same target board from several different workstations
+   on the LAN, depending on where you are working at the moment
+
+ - Time-sharing one board amongst multiple users, without having to
+   forcibly disconnect others
+ 
+ - Demonstrating proper use of the target board to a remote user at
+   another site
+
+
+Escape sequences:
+
+The default escape sequence is <Control-Shift-6> or <Control-6>, which
+generates ASCII 0x1e (RS).  It has been tested with xterm,
+gnome-terminal, Windows 2000/XP telnet, putty, Tera Term, and others.
+
+Supported escape sequences:
+. - terminate connection
+B - send a BREAK to the device
+C - clear the screen
+E - exclusive access (kill other clients)
+R - reboot the target
+S - status
+T - tty reset
+1,5,3,2,9 - set port to (115200,57600,38400,19200,9600) bps
+? - this help page
+
+Example: to reboot, type <Control-Shift-6>, then type the letter <R>
+(case insensitive).
+
+
+Logging:
+
+ip2log can connect to a local or remote ip2ser instance the same way as
+a standard telnet client.  It attempts to strip out the telnet escape
+sequences, and perform proper CRLF->LF or CR->LF translations.
+
+ip2log works on a line-by-line basis, and flushes the data out to disk
+at the end of each line.  ^H erases the most recent character, to
+help improve readability of the log.
+
+The "-R" command line option disables all of this character translation.
+
+It is safe to truncate the log file without stopping the daemon:
+
+> /tmp/s0.log
+
+
+Help screens:
+
+usage: ip2ser [ options ] -d <device>
+
+Options:
+ -d <device>          Serial device (e.g. /dev/ttyS0)
+ -p <port>            TCP port (default 2300)
+ -b <baud>            Baud rate (default 115200)
+ -e <esc_char>        Escape character (default 0x1e = Control-^)
+ -R                   Raw protocol (default is telnet)
+ -r <reboot_cmd>      Shell command line to reboot the target
+ -D                   Debug mode - don't fork into background
+
+
+usage: ip2log [ options ] <host> <port>
+
+Options:
+ -f <file>            Log to FILE (default: HOST-PORT.txt)
+ -a                   Append to log file (default: overwrite)
+ -R                   Raw mode - no character translation
+ -t                   Enable standard timestamps
+ -tt                  Enable microsecond timestamps
+ -D                   Debug mode - don't fork into background
+
+
+License:
+
+These programs are released under GPLv2.  See COPYING for details.
+
+
+Contact:
+
+Kevin Cernekee <cernekee at gmail.com>
+
+For best results, include "ip2ser" in the subject line.
+
+
+Other resources:
+
+X10 Firecracker under Linux:
+
+http://www.linuxha.com/bottlerocket/
+http://www.aboutdebian.com/x10.htm
+
+Rocketport Express drivers (still maintained out of tree as of 2011/11/20):
+
+ftp://ftp.comtrol.com/html/rp_express_drivers.htm
+
+Synaccess power controller automation:
+
+http://www.synaccess-net.com/support.php
+http://www.synaccess-net.com/downloadDoc/serCapNPC.html

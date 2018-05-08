@@ -1,0 +1,46 @@
+#!/usr/bin/expect -f
+
+# set "host" to the hostname/IP of the Synaccess device on your LAN
+
+set host "synaccess.example.com"
+set send_slow {10 .100}
+set timeout 5
+log_user 0
+
+proc waitfor { a } {
+	expect {
+		timeout {
+			puts "TIMEOUT"
+			exit 1
+		}
+		$a {
+			return
+		}
+	}
+}
+
+if { $argc != 2 } {
+	puts "usage: synaccess.expect <outlet> <0|1>"
+	puts "OUTLET is 1-8"
+	exit 1
+}
+
+set outlet [lindex $argv 0]
+set state [lindex $argv 1]
+
+set pid [spawn telnet $host 23]
+waitfor "Make sure"
+waitfor ">"
+if { $state == "r" } {
+	send "pset $outlet 0\r"
+	waitfor ">"
+	sleep 1
+	send "pset $outlet 1\r"
+	waitfor ">"
+} else {
+	send "pset $outlet $state\r"
+	waitfor ">"
+}
+close
+
+exit 0
