@@ -14,6 +14,8 @@ class SomeUartDevice: ARSocketDelegate {
     var isRuningLoop = false
     var maxBufferSize = 1024 //1K input UART buffer for parcing incomming data
 
+    private var packetToSend = [UInt8]()//packetData output
+    
     var serialQueue: DispatchQueue!
     
     var host = ""
@@ -109,6 +111,23 @@ class SomeUartDevice: ARSocketDelegate {
     func stop() {
         isRuningLoop = false
         print("Stoping thread \(self.portName)...")
+    }
+    
+    func createPacket() {
+        packetToSend.removeAll()
+        //add bytes for sending here
+        packetToSend.append(0x55)
+        packetToSend.append(0xAA)
+    }
+    
+    
+    func sendPacket() {
+        createPacket()
+        do {
+            _ = try serialPort.writeByteArray(into: self.packetToSend)
+        } catch {
+            print("Error: \(error)")
+        }
     }
 }
 
