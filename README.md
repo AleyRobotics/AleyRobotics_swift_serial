@@ -2,7 +2,7 @@
 
 ## Write cross platform swift code for Arm at Mac, compile it at ur Rpi
 
-Simple code useful for working with UART ports at Raspberry Pi with  Apple swift language.
+Use UART ports at Raspberry Pi as UART at your Mac with swift. Compile and run same code at Raspberry pi.
 Easy debuging UART protocols with remote socket connection at Mac throught Sockets and ip2Ser linux App.
 
 
